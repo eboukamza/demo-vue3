@@ -123,16 +123,36 @@
         >
       </li>
     </ul>
+    <button @click="inc()">Inc</button>
+    {{ foo }} {{ bar }}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "HelloWorld",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      bar: 0,
+    };
+  },
+  setup() {
+    const foo = ref(1);
+
+    return {
+      foo,
+    };
+  },
+  methods: {
+    inc() {
+      this.foo = this.foo + 1;
+      this.bar = this.bar - 1;
+    },
   },
 });
 </script>
