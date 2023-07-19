@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
-    <h1>{{ $t(msg) }}</h1>
+    <h1>{{ $t(msg) }} {{ msgPluralized }}</h1>
+    <h2>{{ sayHello }}</h2>
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
       check out the
@@ -129,12 +130,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "HelloWorld",
   props: {
-    msg: String,
+    msg: { type: String, required: true },
   },
   data() {
     return {
@@ -142,16 +144,24 @@ export default defineComponent({
     };
   },
   setup() {
-    const foo = ref(1);
+    const foo = ref(0);
+    const { t } = useI18n();
+    const msgPluralized = computed(() => t("days", foo.value));
 
     return {
       foo,
+      msgPluralized,
     };
+  },
+  computed: {
+    sayHello() {
+      return this.$t(this.msg);
+    },
   },
   methods: {
     inc() {
       this.foo = this.foo + 1;
-      this.bar = this.bar - 1;
+      this.bar = this.bar + 2;
     },
   },
 });
