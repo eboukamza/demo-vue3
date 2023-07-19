@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <HelloWorld msg="hello" />
+    Lang: <button @click="changeLang('es')">Es</button>
+    <button @click="changeLang('en')">En</button>
   </div>
 </template>
 
@@ -13,6 +15,11 @@ export default defineComponent({
   name: "HomeView",
   components: {
     HelloWorld,
+  },
+  methods: {
+    changeLang(lang: string) {
+      this.$i18n.locale = lang;
+    },
   },
 });
 </script>
